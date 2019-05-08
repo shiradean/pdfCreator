@@ -12,10 +12,10 @@ public class DateConverter implements Converter<LocalDate, XMLGregorianCalendar>
 
     public XMLGregorianCalendar convert(MappingContext<LocalDate, XMLGregorianCalendar> context) {
         try {
-      	  System.out.println(context.getSource().toString());
           return DatatypeFactory.newInstance().newXMLGregorianCalendar(context.getSource().toString());
         } catch (Exception e) {
-          return null;
+        	e.printStackTrace();
+        	return null;
         }
       }
 }

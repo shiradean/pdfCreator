@@ -5,38 +5,57 @@
     <xsl:template
     			xmlns:ns2="http://creator/domain/"
     			match="contract">
-        <!-- fo:root is the top element of any printed item (document or book, etc.)-->
-        <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-            <fo:layout-master-set>
-                <fo:simple-page-master master-name="portraitMaster" 
-                    margin-top="100mm" 
-                    margin-bottom="10mm"
-                    margin-left="10mm" 
-                    margin-right="10mm">
-                    <fo:region-body margin-top="10mm" margin-bottom="10mm"/>
-                    <fo:region-before extent="105mm"/>
-                    <fo:region-after extent="5mm"/>
-                </fo:simple-page-master>
-            </fo:layout-master-set>
-
-            <fo:page-sequence master-reference="portraitMaster">
-                <!-- Header -->
-                <fo:static-content flow-name="xsl-region-before">
-                    <fo:block text-align="center">Double It Response</fo:block>
-                </fo:static-content>
-                <fo:flow flow-name="xsl-region-body">
-          
-                   <fo:block text-align="center" > 
-                        	Contract type is   <xsl:value-of select="." />
-                   </fo:block>
-                   	<fo:block text-align="center">
-                   		Contract <xsl:value-of select="ns2:name" /> 
-                   </fo:block>
-                   <fo:block text-align="center" background-color="red" >
-                   		<xsl:value-of select="."/> doubled is <xsl:value-of select=". * 2"/>
-                   </fo:block>
-              </fo:flow>                          
-           </fo:page-sequence>
-        </fo:root>
+    			
+		<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+			<fo:layout-master-set>
+				<fo:simple-page-master master-name="all"
+					page-height="11in" page-width="8.5in" margin-top="0.25in"
+					margin-bottom="0.25in" margin-left="1in" margin-right="1in">
+					<fo:region-body margin-top="2in" margin-bottom="1in" />
+					<fo:region-before extent="2in" />
+					<fo:region-after extent="1in" />
+				</fo:simple-page-master>
+			</fo:layout-master-set>
+			<fo:page-sequence master-reference="all">
+				<!-- header -->
+				<fo:static-content flow-name="xsl-region-before">
+					<fo:block text-align="end">
+						<fo:external-graphic src="url(file:coffee-cup-logoa.jpg)"/>
+					</fo:block>
+					<fo:block font-size="18pt" font-family="sans-serif"	line-height="1.5em"	text-align="center">
+						<xsl:value-of select="number" />
+					</fo:block>
+				</fo:static-content>
+				<fo:static-content flow-name="xsl-region-after">
+					<fo:block text-align="end" font-size="10pt" font-family="serif">
+						Page <fo:page-number />
+					</fo:block>
+				</fo:static-content>
+				<fo:flow flow-name="xsl-region-body">
+					<xsl:call-template name="DisplayOrderInformation" />
+				</fo:flow>
+			</fo:page-sequence>
+		</fo:root>
   </xsl:template>
+  
+  	<xsl:template name="DisplayOrderInformation">
+		<fo:block text-align="right">
+			<fo:inline font-weight="bold">Id: </fo:inline>
+			<xsl:value-of select="./@id" />
+		</fo:block>
+		<fo:block text-align="right">
+			<fo:inline font-weight="bold">Since: </fo:inline>
+			<xsl:value-of select="./since" />
+		</fo:block>
+		<fo:block text-align="right">
+			<fo:inline font-weight="bold">Till: </fo:inline>
+			<xsl:value-of select="./till" />
+		</fo:block>
+	</xsl:template>
+  
+  	<xsl:template match="number">
+
+						
+	</xsl:template>
+  
 </xsl:stylesheet>

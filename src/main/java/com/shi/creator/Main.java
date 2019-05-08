@@ -1,5 +1,8 @@
 package com.shi.creator;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -39,7 +42,14 @@ public class Main {
 		ContractService contractService = new ContractService();
 		Contract contract = contractService.findContract(1);
 				
-		Creator creator  = new Creator();
-		creator.createPdf(ContractTypeConverter.instance.toXml(contract));
+		Creator creator  = new Creator();		
+
+		try {
+			OutputStream out = new FileOutputStream("out.pdf");
+			out.write(creator.createPdf(ContractTypeConverter.instance.toXml(contract)));
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
