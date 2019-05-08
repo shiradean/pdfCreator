@@ -1,11 +1,9 @@
 package com.shi.creator;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URI;
-import java.net.URL;
 import java.util.Calendar;
 
 import javax.xml.bind.JAXBContext;
@@ -61,8 +59,7 @@ public class Creator {
 			userAgent.setTitle("Contract ¹" + contract.getNumber());
 			userAgent.setSubject("contract pdf");
 
-			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, pdfBaos);
-			
+			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, pdfBaos);			
 
 			Result res = new SAXResult(fop.getDefaultHandler());
 			transformer.transform(new StreamSource(new StringReader(toXMLString(contract))), res);

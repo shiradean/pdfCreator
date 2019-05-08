@@ -2,7 +2,6 @@ package com.shi.creator.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +24,7 @@ import lombok.Setter;
 
 @NamedQueries(value = {
 		@NamedQuery(name = Contract.SELECT_ALL, query = "select u from Contract u"),
-		@NamedQuery(name = Contract.FIND_BY_EMAIL, query = "select u from Contract u where u.number = :number")})
+		@NamedQuery(name = Contract.FIND_BY_NUMBER, query = "select u from Contract u where u.number = :number")})
 
 @Entity
 @Table(name = "contracts", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "number"))
@@ -33,7 +32,7 @@ import lombok.Setter;
 public class Contract {
 
 	public static final String SELECT_ALL = "select all contracts";
-	public static final String FIND_BY_EMAIL = "find contract by number";
+	public static final String FIND_BY_NUMBER = "find contract by number";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

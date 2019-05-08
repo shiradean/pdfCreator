@@ -38,12 +38,13 @@ public class HolderDAO {
         session.close();
     }
 
-    public Holder findHolderById(int id) {
-        return SessionFactoryUtil.getSessionFactory().openSession().get(Holder.class, id);
+    public Holder findHolderByEmail(int id) {
+        return SessionFactoryUtil.getSessionFactory().openSession()
+        			.createNamedQuery(Holder.FIND_BY_EMAIL, Holder.class).getSingleResult();
     }
 
     public List<Holder> findAll() {
-        List<Holder> holders = (List<Holder>)  SessionFactoryUtil.getSessionFactory().openSession().createQuery("From Holder").list();
-        return holders;
+        return SessionFactoryUtil.getSessionFactory().openSession()
+        			.createNamedQuery(Holder.SELECT_ALL, Holder.class).getResultList();
     }
 }

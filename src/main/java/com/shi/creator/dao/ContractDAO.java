@@ -37,12 +37,13 @@ public class ContractDAO {
         session.close();
     }
 
-    public Contract findContractById(int id) {
-        return SessionFactoryUtil.getSessionFactory().openSession().get(Contract.class, id);
+    public Contract findContractByNumber(String number) {
+        return SessionFactoryUtil.getSessionFactory().openSession()
+        			.createNamedQuery(Contract.FIND_BY_NUMBER, Contract.class).getSingleResult();
     }
 
     public List<Contract> findAll() {
-        List<Contract> contracts = (List<Contract>)  SessionFactoryUtil.getSessionFactory().openSession().createQuery("From Contract").list();
-        return contracts;
+        return  SessionFactoryUtil.getSessionFactory().openSession()
+        			.createNamedQuery(Contract.SELECT_ALL, Contract.class).getResultList();
     }
 }
