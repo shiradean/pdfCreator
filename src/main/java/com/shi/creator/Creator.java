@@ -27,6 +27,10 @@ import org.apache.xmlgraphics.util.MimeConstants;
 import com.shi.creator.domain.ContractType;
 
 public class Creator {
+	private static final String PDF_AUTHOR = "shiradean";
+	private static final String COMPANY_ADDRESS = "Vanickova 7, Praha, Czech Republic, 16900";
+	private static final String COMPANY_NAME = "SUZ CVUT";
+	private static final String COMPANY_REPRESENTATIVE = "Ida Vavrouskova";
 	
 	private String toXMLString(ContractType contract) throws JAXBException {
 		JAXBElement<ContractType> jx = new JAXBElement<ContractType>(new QName("contract"), ContractType.class, contract);
@@ -50,14 +54,16 @@ public class Creator {
 			Templates cachedXSLT = transFact.newTemplates(xsltSource);
 			Transformer transformer = cachedXSLT.newTransformer();			
 
+			transformer.setParameter("compName", COMPANY_NAME);
+			transformer.setParameter("compAddress", COMPANY_ADDRESS);
+			transformer.setParameter("compRepresentative", COMPANY_REPRESENTATIVE);
 			
 			FopFactory fopFactory = FopFactory.newInstance(new URI("/"));
 			
 			FOUserAgent userAgent = fopFactory.newFOUserAgent();
-			userAgent.setAuthor("shiradean");
+			userAgent.setAuthor(PDF_AUTHOR);
 			userAgent.setCreationDate(Calendar.getInstance().getTime());
 			userAgent.setTitle("Contract ¹" + contract.getNumber());
-			userAgent.setSubject("contract pdf");
 
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, pdfBaos);			
 

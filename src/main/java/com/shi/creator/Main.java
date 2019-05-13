@@ -29,7 +29,7 @@ public class Main {
 		contract.setSignedDate(LocalDate.now());
 		contract.setSince(LocalDate.now());
 		contract.setTill(LocalDate.now().plusYears(1));
-		contract.setSum(new BigDecimal(12000));
+		contract.setSum(new BigDecimal(1200000.4589));
 		return contract;
 	}
 
