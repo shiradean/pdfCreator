@@ -28,7 +28,7 @@ public class ContractService {
         return contractsDao.findAll();
     }
 
-    public Contract findContractById(int id) {
-        return contractsDao.findContractById(id);
+    public Contract findContractByNumber(String number) {
+        return contractsDao.findContractByNumber(number);
     }
 }

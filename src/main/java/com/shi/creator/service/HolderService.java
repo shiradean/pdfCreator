@@ -28,7 +28,7 @@ public class HolderService {
         return holdersDao.findAll();
     }
 
-    public Holder findHolderById(int id) {
-        return holdersDao.findHolderById(id);
+    public Holder findHolderByEmail(String email) {
+        return holdersDao.findHolderByEmail(email);
     }
 }

@@ -2,6 +2,8 @@ package com.shi.creator.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -38,8 +40,10 @@ public class ContractDAO {
     }
 
     public Contract findContractByNumber(String number) {
-        return SessionFactoryUtil.getSessionFactory().openSession()
-        			.createNamedQuery(Contract.FIND_BY_NUMBER, Contract.class).getSingleResult();
+        TypedQuery<Contract> query = SessionFactoryUtil.getSessionFactory().openSession()
+        			.createNamedQuery(Contract.FIND_BY_NUMBER, Contract.class);
+        query.setParameter(Contract.FIND_BY_NUMBER, number);
+        return query.getSingleResult();
     }
 
     public List<Contract> findAll() {

@@ -2,6 +2,8 @@ package com.shi.creator.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -38,9 +40,11 @@ public class HolderDAO {
         session.close();
     }
 
-    public Holder findHolderByEmail(int id) {
-        return SessionFactoryUtil.getSessionFactory().openSession()
-        			.createNamedQuery(Holder.FIND_BY_EMAIL, Holder.class).getSingleResult();
+    public Holder findHolderByEmail(String email) {
+    	TypedQuery<Holder> query = SessionFactoryUtil.getSessionFactory().openSession()
+    			.createNamedQuery(Holder.FIND_BY_EMAIL, Holder.class);
+    	query.setParameter(Holder.FIND_BY_EMAIL, email);
+        return query.getSingleResult();
     }
 
     public List<Holder> findAll() {
